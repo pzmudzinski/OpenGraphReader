@@ -1,8 +1,6 @@
 import Foundation
 import SwiftSoup
 
-
-
 public enum OpenGraphError: Error {
     case invalidURL
     case invalidResponse

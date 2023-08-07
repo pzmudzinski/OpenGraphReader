@@ -16,21 +16,46 @@ public struct OpenGraphResponse {
 
 public extension OpenGraphResponse {
     var title: String? {
-        source["og:title"]?.first
+        source.stringValue("og:title")
     }
     
     var description: String? {
-        source["og:description"]?.first
+        source.stringValue("og:description")
     }
     
     var imageURL: URL? {
-        guard let string = source["og:image"]?.first else {
-            return nil
-        }
-        return URL(string: string)
+        source.urlValue("og:image")
     }
     
     var siteName: String? {
-        source["og:site_name"]?.first
+        source.stringValue("og:site_name")
+    }
+    
+    var imageWidth: Double? {
+        source.doubleValue("og:image:width")
+    }
+    
+    var imageHeight: Double? {
+        source.doubleValue("og:image:height")
+    }
+}
+
+private extension Dictionary where Element == (key: String, value: [String]) {
+    func stringValue(_ key: String) -> String? {
+        self[key]?.first
+    }
+    
+    func doubleValue(_ key: String) -> Double? {
+        guard let doubleValue = self[key]?.first else {
+            return nil
+        }
+        return Double(doubleValue)
+    }
+    
+    func urlValue(_ key: String) -> URL? {
+        guard let string = self["og:image"]?.first else {
+            return nil
+        }
+        return URL(string: string)
     }
 }

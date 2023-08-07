@@ -18,7 +18,7 @@ final class OpenGraphReaderTests: XCTestCase {
         continueAfterFailure = false
     }
     
-    func testErrorWhen404() async {
+    func testThrowsErrorWhen404() async {
         await XCTAssertThrowsError(try await reader.parse(url: .nonExisting)) { error in
             guard let openGraphError = error as? OpenGraphError, case .invalidResponse = openGraphError else {
                 XCTFail("Error not instance of invalidRespone")
@@ -57,6 +57,12 @@ final class OpenGraphReaderTests: XCTestCase {
     func testIMDBSiteName() async throws {
         let parsed = try await reader.parse(url: .imdb)
         XCTAssertEqual(parsed.siteName, "IMDb")
+    }
+    
+    func testIMDBImageSize() async throws {
+        let parsed = try await reader.parse(url: .imdb)
+        XCTAssertEqual(1500, parsed.imageHeight)
+        XCTAssertEqual(1000, parsed.imageWidth)
     }
 }
 
