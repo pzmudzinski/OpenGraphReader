@@ -11,6 +11,7 @@ final class OpenGraphReaderTests: XCTestCase {
         sessionConfiguration.protocolClasses = [MockURLProtocol.self]
         
         MockURLProtocol.mockResponse(forURL: .spotifyPlaylist, withLocalFile: "spotifyPlaylist")
+        MockURLProtocol.mockResponse(forURL: .imdb, withLocalFile: "imdb")
         
         reader = OpenGraphReader(sessionConfiguration: sessionConfiguration)
         
@@ -47,11 +48,22 @@ final class OpenGraphReaderTests: XCTestCase {
         
         XCTAssertEqual(parsed.description, expectedDescription)
     }
+    
+    func testIMDBTitle() async throws {
+        let parsed = try await reader.parse(url: .imdb)
+        XCTAssertEqual(parsed.title, "Gorączka (1995) ⭐ 8.3 | Action, Crime, Drama")
+    }
+    
+    func testIMDBSiteName() async throws {
+        let parsed = try await reader.parse(url: .imdb)
+        XCTAssertEqual(parsed.siteName, "IMDb")
+    }
 }
 
 extension URL {
     static let nonExisting = URL(string: "https://open.spotify.com/playlist/notExisting")!
     static let spotifyPlaylist = URL(string: "https://open.spotify.com/playlist/0x4Ke4SArwRpODWyM3Azp0?si=QrIusGwiQoSnEqo3n7JaMg")!
+    static let imdb = URL(string: "https://m.imdb.com/title/tt0113277")!
 }
 
 extension XCTest {

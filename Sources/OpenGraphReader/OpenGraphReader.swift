@@ -1,12 +1,7 @@
 import Foundation
 import SwiftSoup
 
-public struct OpenGraphData {
-    public var title: String?
-    public var description: String?
-    public var imageURL: URL?
-    // Add more OpenGraph properties as needed
-}
+
 
 public enum OpenGraphError: Error {
     case invalidURL
@@ -27,7 +22,7 @@ public class OpenGraphReader {
         urlSession = URLSession(configuration: sessionConfiguration)
     }
     
-    public func parse(url: URL) async throws -> OpenGraphData {
+    public func parse(url: URL) async throws -> OpenGraphResponse {
         let (data, response) = try await urlSession.data(for: .init(url: url))
         
         guard let htmlResponse = response as? HTTPURLResponse, htmlResponse.ok else {
@@ -40,14 +35,18 @@ public class OpenGraphReader {
         
         do {
             let doc = try SwiftSoup.parse(html)
-            var openGraphData = OpenGraphData()
+
+            let metas = try doc.select("meta[property]")
+            var result: [String: [String]] = [:]
             
-            openGraphData.title = try doc.select("meta[property=og:title]").attr("content")
-            openGraphData.description = try doc.select("meta[property=og:description]").attr("content")
-            let ogImageURL = try doc.select("meta[property=og:image]").attr("content")
-            openGraphData.imageURL = URL(string: ogImageURL)
+            metas.forEach { meta in
+                guard let propertyName = try? meta.attr("property"), let content = try? meta.attr("content") else { return }
+                var currentValues = result[propertyName, default: []]
+                currentValues.append(content)
+                result.updateValue(currentValues, forKey: propertyName)
+            }
             
-            return openGraphData
+            return OpenGraphResponse(source: result)
         } catch {
             throw OpenGraphError.parsingError(error)
         }

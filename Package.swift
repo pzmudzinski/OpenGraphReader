@@ -27,7 +27,8 @@ let package = Package(
             name: "OpenGraphReaderTests",
             dependencies: ["OpenGraphReader"],
             resources: [
-                        .copy("Resources/spotifyPlaylist.html")
+                        .copy("Resources/spotifyPlaylist.html"),
+                        .copy("Resources/imdb.html")
                     ]),
     ],
     swiftLanguageVersions: [.v5]
