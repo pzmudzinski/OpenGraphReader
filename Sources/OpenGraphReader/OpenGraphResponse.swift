@@ -16,7 +16,11 @@ public struct OpenGraphResponse {
 
 public extension OpenGraphResponse {
     var title: String? {
-        source.stringValue("og:title")
+        source.stringValue("og:title") ?? source.stringValue("title")
+    }
+    
+    var type: String? {
+        source.stringValue("og:type")
     }
     
     var description: String? {
@@ -27,8 +31,16 @@ public extension OpenGraphResponse {
         source.urlValue("og:image")
     }
     
-    var siteName: String? {
-        source.stringValue("og:site_name")
+    var imageAlt: String? {
+        source.stringValue("og:image:alt")
+    }
+    
+    var imageSecureURL: URL? {
+        source.urlValue("og:image:secure_url")
+    }
+    
+    var imageType: String? {
+        source.stringValue("og:image:type")
     }
     
     var imageWidth: Double? {
@@ -37,6 +49,52 @@ public extension OpenGraphResponse {
     
     var imageHeight: Double? {
         source.doubleValue("og:image:height")
+    }
+    
+    var siteName: String? {
+        source.stringValue("og:site_name")
+    }
+    
+    var restrictionsCountriesAllowed: [String]? {
+        source["og:restrictions:country:allowed"]
+    }
+    
+    var audioURL: URL? {
+        source.urlValue("og:audio")
+    }
+    
+    var determiner: String? {
+        source.stringValue("og:determiner")
+    }
+    
+    var locale: String? {
+        source.stringValue("og:locale")
+    }
+    
+    var localeAlternate: [String]? {
+        source["og:locale:alternate"]
+    }
+    
+    var videoURL: URL? {
+        source.urlValue("og:video")
+    }
+}
+
+public extension OpenGraphResponse {
+    func arrayValue(_ key: String) -> [String]? {
+        source[key]
+    }
+    
+    func stringValue(_ key: String) -> String? {
+        source.stringValue(key)
+    }
+    
+    func doubleValue(_ key: String) -> Double? {
+        source.doubleValue(key)
+    }
+    
+    func urlValue(_ key: String) -> URL? {
+        source.urlValue(key)
     }
 }
 
@@ -53,7 +111,7 @@ private extension Dictionary where Element == (key: String, value: [String]) {
     }
     
     func urlValue(_ key: String) -> URL? {
-        guard let string = self["og:image"]?.first else {
+        guard let string = self[key]?.first else {
             return nil
         }
         return URL(string: string)

@@ -9,7 +9,7 @@ import Foundation
 import XCTest
 
 extension MockURLProtocol {
-    static func mockResponse(forURL url: URL, withLocalFile localFile: String, extension: String? = "html") {
+    static func addMockResponse(forURL url: URL, withLocalFile localFile: String, extension: String? = "html") {
         func loadFileFromLocalPath(_ localFilePath: String) throws -> Data {
             guard let url = Bundle.module.url(forResource: localFilePath, withExtension: `extension`) else {
                 throw NSError(domain: "XCTestCase", code: 0)
@@ -24,5 +24,11 @@ extension MockURLProtocol {
         } catch {
             XCTFail(error.localizedDescription)
         }
+    }
+}
+
+extension XCTest {
+    func addMockResponse(forURL url: URL, withLocalFile localFile: String, extension: String? = "html") {
+        MockURLProtocol.addMockResponse(forURL: url, withLocalFile: localFile, extension: `extension`)
     }
 }
