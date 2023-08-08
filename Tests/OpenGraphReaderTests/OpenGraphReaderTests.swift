@@ -110,6 +110,13 @@ final class OpenGraphReaderParseTests: XCTestCase {
         XCTAssertEqual(parsed.title, "Something something double quote \" Something")
     }
     
+    func testParseCanonicalURL() throws {
+        let html = "<meta content='https://www.google.com' property='og:url' />"
+        let parsed = try reader.parse(html: html)
+        
+        XCTAssertEqual(parsed.url, URL(string: "https://www.google.com"))
+    }
+    
     func testParseEmptyString() throws {
         let parsed = try reader.parse(html: "")
         

@@ -27,6 +27,10 @@ public extension OpenGraphResponse {
         source.stringValue("og:description")
     }
     
+    var url: URL? {
+        source.urlValue("og:url")
+    }
+    
     var imageURL: URL? {
         source.urlValue("og:image")
     }
