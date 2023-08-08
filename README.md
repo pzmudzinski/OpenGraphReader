@@ -32,7 +32,7 @@ import OpenGraphSwift
 
 let reader = OpenGraphReader()
 do {
-    let openGraphResponse = try reader.fetch(url: yourURLHere)
+    let openGraphResponse = try await reader.fetch(url: .init(string: "https://www.imdb.com/title/tt15398776/?ref_=ext_shr_lnk"))
     // Access OpenGraph properties using openGraphResponse properties
     print("Title: \(openGraphResponse.title ?? "")")
     print("Description: \(openGraphResponse.description ?? "")")
