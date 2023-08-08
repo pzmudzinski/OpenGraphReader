@@ -1,5 +1,6 @@
 # OpenGraphReader
 
+[![SwiftPM compatible](https://img.shields.io/badge/SwiftPM-compatible-brightgreen.svg)](https://swift.org/package-manager/)
 ![Tests](https://github.com/pzmudzinski/OpenGraphReader/actions/workflows/tests.yml/badge.svg)
 
 OpenGraphSwift is a Swift library that allows you to easily extract OpenGraph metadata from HTML content. OpenGraph metadata provides structured information about a web page's content when shared on social media platforms.
