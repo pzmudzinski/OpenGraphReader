@@ -11,7 +11,7 @@ OpenGraphSwift is a Swift library that allows you to easily extract OpenGraph me
 - Parses HTML content to extract various OpenGraph properties such as title, type, description, URL, images, site name, and more.
 - Provides convenient extensions for accessing OpenGraph properties in a structured manner.
 
-## Usage
+## Installation
 
 ### Installing via Swift Package Manager (SPM)
 
@@ -22,6 +22,8 @@ You can easily integrate OpenGraphSwift into your project using Swift Package Ma
 3. Enter the URL of this repository: `https://github.com/pzmudzinski/OpenGraphReader.git`
 4. Choose the appropriate version or branch.
 5. Click "Next" and then "Finish".
+
+## Usage
 
 ### Fetching OpenGraph Metadata
 
