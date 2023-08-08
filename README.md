@@ -20,8 +20,8 @@ You can easily integrate OpenGraphSwift into your project using Swift Package Ma
 1. Open your Xcode project.
 2. Click on "File" > "Swift Packages" > "Add Package Dependency..."
 3. Enter the URL of this repository: `https://github.com/pzmudzinski/OpenGraphReader.git`
-4. Choose the appropriate version or branch.
-5. Click "Next" and then "Finish".
+4. Choose "Up To Next Major Version": 1.0.0
+5. Click "Add Package"
 
 ## Usage
 
