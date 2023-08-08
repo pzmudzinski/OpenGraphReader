@@ -1,21 +1,27 @@
 import Foundation
 import SwiftSoup
 
+/// Represents errors that can occur during OpenGraph operations.
 public enum OpenGraphError: Error {
     case invalidURL
     case fetchError
     case invalidResponse
-
     case parsingError(Error)
 }
 
+/// A utility class for reading OpenGraph data from a URL.
 public class OpenGraphReader {
     private let urlSession: URLSession
     
+    /// Initializes an instance of `OpenGraphReader`.
+    /// - Parameter sessionConfiguration: The session configuration for URL requests.
     public init(sessionConfiguration: URLSessionConfiguration = .default) {
         urlSession = URLSession(configuration: sessionConfiguration)
     }
     
+    /// Fetches OpenGraph data from a URL request.
+    /// - Parameter request: The URL request to fetch OpenGraph data from.
+    /// - Returns: An `OpenGraphResponse` containing the fetched data.
     public func fetch(request: URLRequest) async throws -> OpenGraphResponse {
         let (data, response) = try await urlSession.data(for: request)
         
@@ -30,10 +36,16 @@ public class OpenGraphReader {
         return try parse(html: html)
     }
     
+    /// Fetches OpenGraph data from a URL.
+    /// - Parameter url: The URL to fetch OpenGraph data from.
+    /// - Returns: An `OpenGraphResponse` containing the fetched data.
     public func fetch(url: URL) async throws -> OpenGraphResponse {
         try await fetch(request: .init(url: url))
     }
     
+    /// Parses the HTML content and extracts OpenGraph data.
+    /// - Parameter html: The HTML content to parse.
+    /// - Returns: An `OpenGraphResponse` containing the parsed OpenGraph data.
     public func parse(html: String) throws -> OpenGraphResponse {
         do {
             let doc = try SwiftSoup.parse(html)
@@ -54,7 +66,6 @@ public class OpenGraphReader {
             if let title = try? doc.title() {
                 result["title"] = [title]
             }
-            
             
             return OpenGraphResponse(source: result)
         } catch {
