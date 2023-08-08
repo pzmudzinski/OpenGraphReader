@@ -4,7 +4,7 @@
 ![Tests](https://github.com/pzmudzinski/OpenGraphReader/actions/workflows/tests.yml/badge.svg)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/pzmudzinski/OpenGraphReader/blob/main/LICENSE)
 
-OpenGraphSwift is a Swift library that allows you to easily extract OpenGraph metadata from HTML content. OpenGraph metadata provides structured information about a web page's content when shared on social media platforms.
+OpenGraphReader is a Swift library that allows you to easily extract OpenGraph metadata from HTML content. OpenGraph metadata provides structured information about a web page's content when shared on social media platforms.
 
 ## Features
 
@@ -16,7 +16,7 @@ OpenGraphSwift is a Swift library that allows you to easily extract OpenGraph me
 
 ### Installing via Swift Package Manager (SPM)
 
-You can easily integrate OpenGraphSwift into your project using Swift Package Manager:
+You can easily integrate OpenGraphReader into your project using Swift Package Manager:
 
 1. Open your Xcode project.
 2. Click on "File" > "Swift Packages" > "Add Package Dependency..."
@@ -31,7 +31,7 @@ You can easily integrate OpenGraphSwift into your project using Swift Package Ma
 To fetch and parse OpenGraph metadata from a URL:
 
 ```swift
-import OpenGraphSwift
+import OpenGraphReader
 
 let reader = OpenGraphReader()
 do {
@@ -72,8 +72,8 @@ response.urlValue("twitter:image:url")
 
 ## Contributions
 
-Contributions to OpenGraphSwift are welcome! Feel free to submit issues or pull requests for improvements or bug fixes.
+Contributions to OpenGraphReader are welcome! Feel free to submit issues or pull requests for improvements or bug fixes.
 
 ## License
 
-OpenGraphSwift is available under the MIT license. See the [LICENSE](LICENSE) file for more info.
+OpenGraphReader is available under the MIT license. See the [LICENSE](LICENSE) file for more info.
