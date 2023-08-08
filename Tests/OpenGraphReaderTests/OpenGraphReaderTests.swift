@@ -21,7 +21,7 @@ final class OpenGraphReaderTests: XCTestCase {
     
     func testThrowsErrorWhen404() async {
         await XCTAssertThrowsError(try await reader.fetch(url: .nonExisting)) { error in
-            guard let openGraphError = error as? OpenGraphError, case .invalidResponse = openGraphError else {
+            guard let openGraphError = error as? OpenGraphError, case .fetchError = openGraphError else {
                 XCTFail("Error not instance of invalidRespone")
                 return
             }

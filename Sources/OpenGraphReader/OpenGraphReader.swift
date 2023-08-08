@@ -3,17 +3,13 @@ import SwiftSoup
 
 public enum OpenGraphError: Error {
     case invalidURL
+    case fetchError
     case invalidResponse
 
     case parsingError(Error)
 }
 
 public class OpenGraphReader {
-    public struct OpenGraphRequest {
-        let url: URL
-        let headers: [String: String]
-    }
-    
     private let urlSession: URLSession
     
     public init(sessionConfiguration: URLSessionConfiguration = .default) {
@@ -24,7 +20,7 @@ public class OpenGraphReader {
         let (data, response) = try await urlSession.data(for: request)
         
         guard let htmlResponse = response as? HTTPURLResponse, htmlResponse.ok else {
-            throw OpenGraphError.invalidResponse
+            throw OpenGraphError.fetchError
         }
         
         guard let html = String(data: data, encoding: .utf8) else {

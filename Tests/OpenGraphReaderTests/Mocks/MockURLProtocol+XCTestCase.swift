@@ -12,7 +12,7 @@ extension MockURLProtocol {
     static func addMockResponse(forURL url: URL, withLocalFile localFile: String, extension: String? = "html") {
         func loadFileFromLocalPath(_ localFilePath: String) throws -> Data {
             guard let url = Bundle.module.url(forResource: localFilePath, withExtension: `extension`) else {
-                throw NSError(domain: "XCTestCase", code: 0)
+                throw NSError(domain: "XCTestCase", code: 0, userInfo: ["reason": "file \(localFile) not found."])
             }
             let data = try Data(contentsOf: url)
             return data
