@@ -42,6 +42,7 @@ do {
 ### Using HTML directly
 
 If you already have HTML you can pass it to reader as well:
+
 ```swift
 let response = try reader.parse(html: "...")
 
@@ -50,6 +51,7 @@ let response = try reader.parse(html: "...")
 ### Getting non default meta tags
 
 If `OpenGraphResponse` does not have all properties you need you can directly access all meta tags (including those not being part of OpenGraph specification) by using one of those helper methods:
+
 ```swift
 response.stringValue("twitter:image")
 response.arrayValue("twitter:tag")
@@ -68,4 +70,4 @@ Contributions to OpenGraphSwift are welcome! Feel free to submit issues or pull 
 
 ## License
 
-OpenGraphSwift is available under the MIT license. See the [LICENSE](https://opensource.org/license/mit/) file for more info.
+OpenGraphSwift is available under the MIT license. See the [LICENSE](LICENSE) file for more info.
